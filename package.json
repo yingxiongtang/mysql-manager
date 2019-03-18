@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\"",
-    "heroku-postbuild": "cd client && yarn && yarn run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
       "cookie-parser": "~1.4.3",
