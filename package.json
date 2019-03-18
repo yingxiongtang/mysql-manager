@@ -1,0 +1,25 @@
+{
+  "name": "mysql-manager",
+  "version": "1.0.0",
+  "description": "A web app for managing MySQL databases.",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd server && node ./bin/www\" \"cd client && npm start\"",
+    "build":"cd server && npm i",
+    "heroku-postbuild": "cd client && yarn && yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avhaymart/mysql-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avhaymart/mysql-manager/issues"
+  },
+  "homepage": "https://github.com/avhaymart/mysql-manager#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
