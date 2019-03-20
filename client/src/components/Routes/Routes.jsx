@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Connection from "../Connection";
+import Database from "../Database";
 class Routes extends Component {
   render() {
     return (
@@ -8,6 +9,7 @@ class Routes extends Component {
         <Switch>
           {/* <Route path="/" exact component={props => <Timeline posts={this.state.posts} {...props} />} /> */}
           <Route path="/" exact component={Connection} />
+          <Route path="/database" exact component={Database} />
         </Switch>
       </BrowserRouter>
     );

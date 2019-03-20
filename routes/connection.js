@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 router.post('/', function (req, res, next) {
-  console.log(req.body)
-
-  var connection = mysql.createConnection({
+  const connectObject = {
     host: req.body.host,
     user: req.body.user,
     password: req.body.password,
-    database: req.body.database
-  });
+    database: req.body.database,
+  }
+
+  var connection = mysql.createConnection(connectObject);
 
   connection.connect(function (err) {
     if (err) {
@@ -17,6 +17,7 @@ router.post('/', function (req, res, next) {
       res.sendStatus(500)
     }
     console.log('connected as id ' + connection.threadId);
+    res.cookie('connection', JSON.stringify(connectObject))
     res.sendStatus(200)
     // fs.writeFile(path, data, { flag: 'wx' }, function (err) {
     //     if (err) throw err;
@@ -39,4 +40,15 @@ router.post('/', function (req, res, next) {
   });
 });
 
-module.exports = router;
+module.exports = {
+  router,
+
+  makeConnection: function (s) {
+    var connect = JSON.parse(s);
+    console.log("Connection: " + connect);
+    var connection = mysql.createConnection(connect);
+    return connection;
+  }
+};
+
+
