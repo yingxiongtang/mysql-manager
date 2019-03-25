@@ -1,0 +1,56 @@
+#sidebar {
+    background-color:rgb(245, 245, 245);
+    border-right: 1px solid rgb(240, 240, 240);
+    height: inherit;
+    -webkit-box-shadow: inset 0px 8px 0px 0px rgba(230,230,230,1);
+    -moz-box-shadow: inset 0px 8px 0px 0px rgba(230,230,230,1);
+    box-shadow: inset 0px 8px 0px 0px rgba(230,230,230,1);
+    padding-top: 8px;
+}
+
+#header {
+    height: 8px;
+}
+
+#db-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+#db-title i {
+    color: rgb(206, 206, 206);
+    font-size: 24px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.25s;
+}
+
+#db-title i:hover {
+    color: rgb(78, 78, 78);
+    cursor: pointer;
+}
+
+#db-tables ul {
+    list-style: none;
+    padding: 0;
+}
+
+#db-tables ul li {
+    height: 50px;
+    
+    display: flex;
+    align-items: center;
+    padding-left: 1.5em;
+    margin: 5px 0;
+    transition: background-color 0.25s;
+}
+
+#db-tables ul li:hover {
+    background-color: rgb(237, 237, 237);
+    cursor: pointer;
+}

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import './Database.css';
+
+import Sidebar from '../Sidebar'
+import Content from '../Content'
+import ModalConductor from "../ModalConductor";
+
 class Database extends Component {
 
   constructor(props) {
@@ -14,7 +19,8 @@ class Database extends Component {
       loadingItems: 2,
       tables: [],
       tableItems: [],
-      dbName: ""
+      dbName: "",
+      modal: 0,
     };
 
     this.handleTableClick = this.handleTableClick.bind(this);
@@ -26,11 +32,9 @@ class Database extends Component {
       data: key
     }).then(res => {
       console.log(res)
-      this.setState({loadingItems:0,tableItems:res.data});
+      this.setState({ loadingItems: 0, tableItems: res.data });
     }).catch(err => { console.log(err) })
   }
-
-
 
   componentDidMount = () => {
     axios.get("/view").then(res => {
@@ -46,78 +50,21 @@ class Database extends Component {
     })
   }
 
+  showModule = (type) => {
+    this.setState({modalType:type, modal:1});
+  }
+
+  hideModule = () => {
+    this.setState({modalType:null, modal:0});
+  }
+
   render() {
     return (
-      <div className="wrapper row p-0 m-0">
-
-        <nav id="sidebar" className="col-xl-2 col-lg-3">
-          {this.state.loadingTables === 0 &&
-
-            < div id="db-container">
-              <div id="db-title">
-                <h5 className="p-0 m-0">{this.state.dbName}</h5>
-                <i data-toggle="tooltip" data-placement="bottom" title="Create Table" className="far fa-plus-square"></i>
-              </div>
-
-              <div id="db-tables">
-                <ul id="db-tables-ul">
-                  {this.state.tables.map(table => (
-                    <li onClick={(e) => { this.handleTableClick(e, table) }} key={table}>{table}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          }
-
-          {this.state.loadingTables === 1 &&
-            <div className="center max">
-              <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-              <p className="pt-3">Loading database...</p>
-            </div>
-          }
-        </nav>
-
-        <div id="content" className="col-xl-10 col-lg-9">
-
-          {this.state.loadingItems === 2 && <p className="text-center pt-3">Select a table in the sidebar.</p>}
-          {this.state.loadingItems === 1 &&
-            <div className="center max p-0 m-0  ">
-              <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-              <p className="pt-3">Loading table items...</p>
-            </div>
-          }
-          {this.state.loadingItems === 0 &&
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  {Object.keys(this.state.tableItems[0]).map(item => (
-                    <th scope="col">{item}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {/* <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr> */}
-              </tbody>
-            </table>
-
-          }
+      <div className="container-fluid m-0 p-0">
+      {this.state.modal === 1 && <ModalConductor type={this.state.modalType} close={this.hideModule} />}
+        <div className="wrapper row p-0 m-0">
+          <Sidebar showModule={this.showModule} loadingTables={this.state.loadingTables} dbName={this.state.dbName} tables={this.state.tables} handleTableClick={this.handleTableClick} />
+          <Content loadingItems={this.state.loadingItems} tableItems={this.state.tableItems} />
         </div>
       </div>
     )

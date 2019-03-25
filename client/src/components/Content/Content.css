@@ -1,0 +1,27 @@
+#content {
+    min-height: 100vh;
+    padding: 8px 0 0 0;
+    -webkit-box-shadow: inset 0px 8px 0px 0px rgb(39, 39, 39);
+    -moz-box-shadow: inset 0px 8px 0px 0px rgb(39, 39, 39);
+    box-shadow: inset 0px 8px 0px 0px rgb(39, 39, 39);
+}
+
+.last-td {
+    display: flex;
+    justify-content: space-between;
+}
+
+.last-td p {
+    padding: 0;
+}
+
+.last-td i {
+    color: rgb(206, 206, 206);
+    transition: color 0.25s;
+}
+
+.last-td i:hover {
+    color: rgb(78, 78, 78);
+    cursor: pointer;
+}
+
