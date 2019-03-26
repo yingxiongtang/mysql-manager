@@ -50,20 +50,20 @@ class Database extends Component {
     })
   }
 
-  showModule = (type) => {
+  showModal = (type) => {
     this.setState({modalType:type, modal:1});
   }
 
-  hideModule = () => {
+  hideModal = () => {
     this.setState({modalType:null, modal:0});
   }
 
   render() {
     return (
       <div className="container-fluid m-0 p-0">
-      {this.state.modal === 1 && <ModalConductor type={this.state.modalType} close={this.hideModule} />}
+      {this.state.modal === 1 && <ModalConductor type={this.state.modalType} close={this.hideModal} />}
         <div className="wrapper row p-0 m-0">
-          <Sidebar showModule={this.showModule} loadingTables={this.state.loadingTables} dbName={this.state.dbName} tables={this.state.tables} handleTableClick={this.handleTableClick} />
+          <Sidebar showModal={this.showModal} loadingTables={this.state.loadingTables} dbName={this.state.dbName} tables={this.state.tables} handleTableClick={this.handleTableClick} />
           <Content loadingItems={this.state.loadingItems} tableItems={this.state.tableItems} />
         </div>
       </div>

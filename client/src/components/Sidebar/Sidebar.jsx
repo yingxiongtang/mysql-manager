@@ -10,7 +10,7 @@ class Sidebar extends Component {
           <div id="db-container">
             <div id="db-title">
               <h5 className="p-0 m-0">{this.props.dbName}</h5>
-              <i onClick={() => this.props.showModule("CREATE_TABLE")} data-toggle="tooltip" data-placement="bottom" title="Create Table" className="far fa-plus-square"></i>
+              <i onClick={() => this.props.showModal("CREATE_TABLE")} data-toggle="tooltip" data-placement="bottom" title="Create Table" className="far fa-plus-square"></i>
             </div>
 
             <div id="db-tables">

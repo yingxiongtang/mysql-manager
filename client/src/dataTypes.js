@@ -1,12 +1,12 @@
 const data = {
     "Text data types": [
-        ["char(size)", "char", true],
-        ["varchar(size)", "varchar", true],
+        ["char(255)", "char", true],
+        ["varchar(255)", "varchar", true],
         ["text", "text", false]
     ],
 
     "Numeric data types": [
-        ["int(size)", "int", true]
+        ["int(255)", "int", true]
     ],
     "Date data types":[
         ["date()","date","false"],

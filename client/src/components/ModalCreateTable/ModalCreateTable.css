@@ -5,11 +5,9 @@
 .tableItemLabel {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
 }
 
-.tabelItemLabel i {
-    height: 30px !important;
-    width: 30px !important;
-    font-size: 30px !important;
+.tableItemLabel i {
+    font-size: 20px;
 }
