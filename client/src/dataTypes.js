@@ -8,11 +8,11 @@ const data = {
     "Numeric data types": [
         ["int(255)", "int", true]
     ],
-    "Date data types":[
-        ["date()","date","false"],
-        ["datetime()","datetime","false"],
-        ["timestamp()","timestamp","false"]
-    ]
+    // "Date data types":[
+    //     ["date()","date","false"],
+    //     ["datetime()","datetime","false"],
+    //     ["timestamp()","timestamp","false"]
+    // ]
 };
 
 export {data};

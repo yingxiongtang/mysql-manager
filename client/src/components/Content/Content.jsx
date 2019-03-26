@@ -13,42 +13,48 @@ class Content extends Component {
           </div>
         }
         {this.props.loadingItems === 0 &&
-          <table className="table table-striped table-sm table-hover">
-            <thead>
-              <tr>
-                {this.props.tableItems[0] != null &&
-                  Object.keys(this.props.tableItems[0]).map(item => (
-                    <th scope="col" key={item}>{item}</th>
-                  ))}
+          <div>
+            <div className="contentOptions">
+              <button onClick={() => this.props.showModal("CREATE_ROW", this.props.selectedTable)} className="btn btn-primary">Add Row</button>
+              <button onClick={() => this.props.showModal("DELETE_TABLE")} className="btn btn-danger">Delete Table</button>
+            </div>
+            <table className="table table-sm table-hover">
+              <thead>
+                <tr>
+                  {this.props.tableItems[0] != null &&
+                    Object.keys(this.props.tableItems[0]).map(item => (
+                      <th scope="col" key={item}>{item}</th>
+                    ))}
 
-                {this.props.tableItems[0] == null &&
-                  <th> <p className="max center pt-3">Table has no contents</p></th>
-                }
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.tableItems.map(item => (
-                <tr key={this.props.tableItems.indexOf(item)}>
-                  {Object.keys(item).map(value => {
-                    if (Object.keys(item).indexOf(value) === Object.keys(item).length - 1) {
-                      return (
-                        <td className="last-td" key={value}>
-                          <p className="m-0">{item[value]}</p>
-                          <div>
-                            <i className="far fa-edit mr-3"></i>
-                            <i className="far fa-trash-alt mr-1"></i>
-                          </div>
-                        </td>
-                      )
-                    } else {
-                      return <td key={value}>{item[value]}</td>
-                    }
-                  })}
+                  {this.props.tableItems[0] == null &&
+                    <th> <p className="max center pt-3">Table has no contents</p></th>
+                  }
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {this.props.tableItems.map(item => (
+                  <tr key={this.props.tableItems.indexOf(item)}>
+                    {Object.keys(item).map(value => {
+                      if (Object.keys(item).indexOf(value) === Object.keys(item).length - 1) {
+                        return (
+                          <td className="last-td" key={value}>
+                            <p className="m-0">{item[value]}</p>
+                            <div>
+                              <i className="far fa-edit mr-3"></i>
+                              <i onClick={() => this.props.showModal("DELETE_ROW", [item[Object.keys(item)[0]], Object.keys(item)[0]])} className="far fa-trash-alt mr-1"></i>
+                            </div>
+                          </td>
+                        )
+                      } else {
+                        return <td key={value}>{item[value]}</td>
+                      }
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
+          </div>
         }
       </div>
     )

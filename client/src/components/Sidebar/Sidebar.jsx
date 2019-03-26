@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import  { Link } from 'react-router-dom'
 import './Sidebar.css';
 class Sidebar extends Component {
+
+  logOut = () => {
+    window.location.href('/')
+  }
 
   render() {
     return (
@@ -29,6 +34,7 @@ class Sidebar extends Component {
             <p className="pt-3">Loading Sidebar...</p>
           </div>
         }
+        <Link to="/" className="btn btn-outline-secondary sidebar-logout">disconnect</Link>
       </nav>
     )
   }

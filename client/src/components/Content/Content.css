@@ -1,9 +1,10 @@
 #content {
     min-height: 100vh;
     padding: 8px 0 0 0;
-    -webkit-box-shadow: inset 0px 8px 0px 0px rgb(39, 39, 39);
-    -moz-box-shadow: inset 0px 8px 0px 0px rgb(39, 39, 39);
-    box-shadow: inset 0px 8px 0px 0px rgb(39, 39, 39);
+    -webkit-box-shadow: inset 0px 8px 0px 0px #E6E6E6;
+    -moz-box-shadow: inset 0px 8px 0px 0px #E6E6E6;
+    box-shadow: inset 0px 8px 0px 0px #E6E6E6;
+    border-bottom: 2px solid #E6E6E6;
 }
 
 .last-td {
@@ -25,3 +26,9 @@
     cursor: pointer;
 }
 
+.contentOptions {
+    background-color: #F5F5F5;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}

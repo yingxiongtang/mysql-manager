@@ -1,0 +1,18 @@
+.modal {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.tableItemLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tableItemLabel i {
+    font-size: 20px;
+}
+
+.input-p {
+    display: flex;
+    align-items: center;
+}

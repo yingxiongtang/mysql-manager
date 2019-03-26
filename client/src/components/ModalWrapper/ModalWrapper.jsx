@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import './ModalWrapper.css'
 import ModalCreateTable from "../ModalCreateTable";
+import ModalDeleteRow from "../ModalDeleteRow";
+import ModalDeleteTable from '../ModalDeleteTable';
 import axios from 'axios'
+import ModalCreateRow from "../ModalCreateRow/ModalCreateRow";
 // import { data } from '../../dataTypes'
 
 class ModalWrapper extends Component {
@@ -14,7 +17,9 @@ class ModalWrapper extends Component {
             loading: 0,
             tableName: '',
             rows: 1,
-            rowValues: [{ itemName: '', dataTypePretty: '', dataType: '' }]
+            rowValues: [{ itemName: '', dataTypePretty: '', dataType: '' }],
+            tableFields: [],
+            createRowValues: []
         }
     }
 
@@ -41,12 +46,74 @@ class ModalWrapper extends Component {
                         tableName: this.state.tableName,
                         rows: this.state.rowValues
                     }).then(res => {
-                        console.log(res);
+                        this.setState({ error: 0, loading: 0 })
+                        this.props.refresh("table");
+
+                        this.props.close()
                     }).catch(err => {
                         console.log(err);
+                        this.setState({ loading: 0, error: 2 });
                         return;
                     })
                 }
+                break;
+
+            case "CREATE_ROW":
+                this.state.createRowValues.forEach(element => {
+                    if (element === ""){
+                        console.log('invalid found')
+                        this.setState({error:1, loading:0});
+                    }
+                });
+                if (this.state.error === 0) {
+                    axios.post('/api/row', {
+                        data: {
+                            input: this.state.createRowValues,
+                            fields: this.state.tableFields,
+                            name:this.props.data[0]
+                        }
+                    }).then(res => {
+                        this.setState({ loading: 0 })
+                        this.props.refresh("rows");
+                        this.props.close()
+    
+                    }).catch(err => {
+                        console.log(err)
+                        this.setState({ loading: 0, error: 2 });
+                    })
+                }
+                break;
+
+            case "DELETE_ROW":
+                axios.delete('/api/row', {
+                    data: {
+                        rowIndex: this.props.data[0],
+                        tableName: this.props.data[1]
+                    }
+                }).then(res => {
+                    this.setState({ loading: 0 })
+                    this.props.refresh("rows");
+                    this.props.close()
+
+                }).catch(err => {
+                    console.log(err)
+                    this.setState({ loading: 0, error: 2 });
+                })
+                break;
+            case "DELETE_TABLE":
+                axios.delete('/api/table', {
+                    data: {
+                        tableName: this.props.data[1]
+                    }
+                }).then(res => {
+                    this.setState({ loading: 0, tableName: '' })
+                    this.props.refresh("all");
+                    this.props.close()
+
+                }).catch(err => {
+                    console.log(err)
+                    this.setState({ loading: 0, error: 2 });
+                })
                 break;
             default:
                 return;
@@ -112,6 +179,21 @@ class ModalWrapper extends Component {
         this.setState({ rowValues: array });
     }
 
+    // Row functions
+
+    handleCreateRowChange = (e, index) => {
+        let array = [...this.state.createRowValues];
+        array[index] = e.target.value;
+        this.setState({ createRowValues: array });
+        
+    }
+
+    loadCreateRows = (res) => {
+        this.setState({ tableFields: res });
+        this.setState({ createRowValues: Array(this.state.tableFields.length - 1).fill('')})
+        return;
+    }
+
     render() {
         return (
             <div style={{ display: "block" }} onClick={(e) => {
@@ -140,6 +222,19 @@ class ModalWrapper extends Component {
                                 tableName={this.state.tableName}
                                 rows={this.state.rows}
                                 rowValues={this.state.rowValues} />}
+
+                        {this.props.type === "CREATE_ROW" &&
+                            <ModalCreateRow loadCreateRows={this.loadCreateRows} tableFields={this.state.tableFields} data={this.props.data} inputValues={this.state.createRowValues} handleCreateRowChange={this.handleCreateRowChange} />
+                        }
+
+                        {this.props.type === "DELETE_ROW" &&
+                            <ModalDeleteRow />
+                        }
+
+                        {this.props.type === "DELETE_TABLE" &&
+                            <ModalDeleteTable />
+                        }
+
 
                         {this.state.error === 1 &&
                             <div><p className="text-danger center text-center">All fields are required to be filled.</p></div>
