@@ -12,6 +12,7 @@
   * Express
   * MySQL
   * Node.js
+  * Bootstrap
 * Running the Code
   * Clone this GitHub repository into a directory of your choice.
   ```git clone https://github.com/avhaymart/mysql-manager.git```
