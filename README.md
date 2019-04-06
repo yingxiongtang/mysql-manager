@@ -5,7 +5,7 @@
    * Avonlea Haymart
 
 * Project Description
-   * MySQL Manager is a downloadable web-based MySQL manager. I made it because I wanted a cross-platform MySQL tool that's simple and easy to use. It's an alternative to MySQL Workbench or phpmyadmin. 
+   * MySQL Manager is a downloadable web-based database manager. I made it because I wanted a cross-platform tool that's simple and easy to use. I decided I wanted it to be very user friendly, so that a user with little SQL experience could still manage their database. This project is not done; current functionalities include create table, delete table, add row, and delete row. Currently, there are no plans to deploy this.
 
 * Technologies Used
   * React
