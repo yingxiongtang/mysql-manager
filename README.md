@@ -1,6 +1,4 @@
 # MySQL Manager
-# Blog-Website
-
 ![MySQL Manager](https://i.ibb.co/7r8q0b8/Screenshot-from-2019-04-06-09-15-36.png)
 
 * Team Members
