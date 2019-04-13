@@ -7,8 +7,9 @@ class Routes extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          {/* <Route path="/" exact component={props => <Timeline posts={this.state.posts} {...props} />} /> */}
+          {/* Connection is the initial setup page */}
           <Route path="/" exact component={Connection} />
+          {/* Database contains the rest of the web app once the user has a connection made */}
           <Route path="/database" exact component={Database} />
         </Switch>
       </BrowserRouter>

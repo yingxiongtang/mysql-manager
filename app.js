@@ -5,7 +5,6 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var connectionRouter = require('./routes/connection');
-var viewRouter = require('./routes/view');
 var apiRouter = require('./routes/api');
 var app = express();
 
@@ -32,9 +31,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/', indexRouter);
-app.use('/connection', connectionRouter.router);
-app.use('/view', viewRouter);
-app.use('/api', apiRouter);
+app.use('/api', apiRouter, connectionRouter.router);
 
 
 // Prevent fatal MySQL errors from crashing the server

@@ -4,7 +4,8 @@ import ModalWrapper from "../ModalWrapper";
 
 
 function ModalConductor(props) {
-  console.log("asdf created")
+  // pretty self explanitory.
+  // in the index.html, modal is outside of the root div. 
   switch (props.type) {
     case "CREATE_TABLE":
       return ReactDOM.createPortal(

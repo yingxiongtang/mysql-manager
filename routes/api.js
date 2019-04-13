@@ -1,6 +1,70 @@
 var express = require('express');
 var router = express.Router();
 var connect = require("./connection");
+
+router.get('/columnNames', function(req, res, next) {
+    try {
+        var connection = connect.makeConnection(req.cookies.connection);
+    } catch (err) {
+        console.log(err)
+        res.send(err)
+        return;
+    }
+
+    console.log(req.query);
+    let buildString = `SHOW COLUMNS FROM ${req.query.name}`
+
+    console.log(buildString)
+    connection.query(buildString, function (err, dbRes, fields) {
+        if (err) {
+            console.log(err)
+            res.send(400)
+            return;
+        } else {
+            let resObj = [];
+            dbRes.forEach(element => {
+                if (element.Extra !== "auto_increment"){
+                    resObj.push([element.Field,element.Type, element.Extra])
+                }
+            });
+            console.log("Res object" + resObj)
+            res.send(resObj)
+        }
+    })
+})
+
+router.get('/viewTables', function (req, res, next) {
+try {
+    var connection = connect.makeConnection(req.cookies.connection);
+    var tables;
+    var db;
+    connection.query('show tables;', function (err, rows, fields) {
+        tables = rows;
+        connection.query('SELECT DATABASE() FROM DUAL;', function(err, rows, fields) {
+            db = rows;
+            res.send([tables, db]);
+            connection.end();
+        })
+    });
+} catch (err) {
+    console.log(err)
+}
+});
+
+router.post('/viewRows', function (req, res, next) {
+
+    console.log(req.body.data);
+    try {
+        var connection = connect.makeConnection(req.cookies.connection);
+        connection.query(`SELECT * FROM ${req.body.data}`, function (err, rows, fields) {
+            res.send(rows);
+            connection.end();
+        });
+    } catch (err) {
+        console.log(err)
+    }
+});
+
 router.post('/table', function (req, res, next) {
     try {
         var connection = connect.makeConnection(req.cookies.connection);
@@ -113,34 +177,4 @@ router.delete('/table', function (req, res, next) {
     })
 })
 
-router.get('/columns', function(req, res, next) {
-        try {
-            var connection = connect.makeConnection(req.cookies.connection);
-        } catch (err) {
-            console.log(err)
-            res.send(err)
-            return;
-        }
-    
-        console.log(req.query);
-        let buildString = `SHOW COLUMNS FROM ${req.query.name}`
-
-        console.log(buildString)
-        connection.query(buildString, function (err, dbRes, fields) {
-            if (err) {
-                console.log(err)
-                res.send(400)
-                return;
-            } else {
-                let resObj = [];
-                dbRes.forEach(element => {
-                    if (element.Extra !== "auto_increment"){
-                        resObj.push([element.Field,element.Type, element.Extra])
-                    }
-                });
-                console.log("Res object" + resObj)
-                res.send(resObj)
-            }
-        })
-})
 module.exports = router;

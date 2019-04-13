@@ -63,3 +63,8 @@
     left:0;
 
 }
+
+.dbName {
+    max-width: 82%;
+    overflow: hidden;
+}

@@ -8,13 +8,13 @@ class ModalCreateRow extends Component {
         super(props);
         this.state = {
             tableFields: [],
-            inputValues: [],
+            createRowValues: [],
             loading: 1
         }
     }
 
     showColumns = () => {
-        axios.get('/api/columns', {
+        axios.get('/api/columnNames', {
             params: {
                 name: this.props.data[0]
             }
@@ -41,7 +41,7 @@ class ModalCreateRow extends Component {
                         {this.props.tableFields.map(stateField => (
                             <div key={stateField[0]} className="row mb-2">
                                 <p className="input-p col-3 m-0 pl-2">{stateField[0]}</p>
-                                <input type="text" className="form-control col-9" placeholder={stateField[1]} value={this.props.inputValues[this.props.tableFields.indexOf(stateField)]} onChange={(e) => this.props.handleCreateRowChange(e, this.props.tableFields.indexOf(stateField))} required></input>
+                                <input type="text" className="form-control col-9" placeholder={stateField[1]} value={this.props.createRowValues[this.props.tableFields.indexOf(stateField)]} onChange={(e) => this.props.handleCreateRowChange(e, this.props.tableFields.indexOf(stateField))} required></input>
                             </div>
                         ))}
                         

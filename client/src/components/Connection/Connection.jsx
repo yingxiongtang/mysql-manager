@@ -13,16 +13,10 @@ class Connection extends Component {
       // 0 is not yet submitted, 1 is loading, 2 is connected, 3 is failed
       connectStatus: 0
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ connectStatus: 1 });
     const values = {
@@ -31,24 +25,19 @@ class Connection extends Component {
       database: event.target.database.value,
       host: event.target.host.value,
     }
-    console.log(values);
-    axios.post('/connection', values)
+    axios.post('/api/connectDB', values)
       .then(res => {
-        console.log(res);
+        // probably don't need this if statement
         if (res.status === 200) {
           this.setState({ connectStatus: 2 });
-          localStorage.setItem("connection",JSON.stringify(values));
-
-          // test
-          axios.get("/view").then(res => {console.log(res)});
-
+          // this is for letting the connection icon be visible for a second.5 before loading the next thing
           setTimeout(() => window.location.href = "/database", 1500);
         }
       })
       .catch(error => {
         console.log(error);
         this.setState({ connectStatus: 3 });
-        setTimeout(() => this.setState({ connectStatus: 0 }), 3000);
+        setTimeout(() => this.setState({ connectStatus: 0 }), 2000);
       });
   }
 
