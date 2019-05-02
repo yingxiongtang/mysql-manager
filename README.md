@@ -17,5 +17,5 @@
   * Clone this GitHub repository into a directory of your choice.
   ```git clone https://github.com/avhaymart/mysql-manager.git```
   * At the root of the directory, run```npm install```.
-  * In the ```client``` folter, run ```npm install```.
+  * In the ```client``` folder, run ```npm install```.
   * Run ```npm start``` at the root of the directory.
