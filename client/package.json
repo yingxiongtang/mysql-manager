@@ -11,7 +11,7 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.8.4",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
+    "react-scripts": "3.3.0",
     "react-transition-group": "^2.7.0",
     "startbootstrap-sb-admin-2": "^4.0.2",
     "typescript": "^3.3.3333"
